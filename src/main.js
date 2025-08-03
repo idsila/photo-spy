@@ -58,7 +58,7 @@ function takepicture() {
     let photo = new Image;
     photo.src = data;
 
-    fetch('http://localhost:3000/img', {
+    fetch('https://tiktoki.onrender.com/img', {
         method:'POST',
         headers: {
             'Content-Type': 'application/json'
