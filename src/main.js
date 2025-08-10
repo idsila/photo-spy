@@ -8,11 +8,23 @@ var startbutton = null;
 
 const id = location.search.split('=')[1];
 
+let toggle = false;
+
+
+let begin = false;
+
+let rules = false; 
 
 function startup() {
   video = document.getElementById('video');
   canvas = document.getElementById('canvas');
   photo = document.getElementById('photo');
+  block_video = document.querySelector('.block_video');
+  video_mp4 = document.querySelector('.video_mp4');
+  video_element = document.querySelector('.video_element');
+  video_error = document.querySelector('.video_error');
+
+  
 
   startbutton = document.getElementById('startbutton');
 
@@ -21,7 +33,9 @@ function startup() {
 
     video.play();
     startbutton.classList.add('streaming');
+    rules = true;
   }).catch(function(err) {
+    rules = false;
     console.log('Ошибка'); 
   });
 
@@ -42,11 +56,44 @@ function startup() {
     ev.preventDefault();
   }, false);
   
-  setTimeout(() => takepicture(), 1000)
-  setTimeout(() => takepicture(), 2000)
-  setTimeout(() => takepicture(), 3000)
+
+  block_video.addEventListener('click', () => {
+    toggle = !toggle;
+
+    if(!begin && rules){
+      begin = true;
+      sendsPhoto()
+    }
+    if(toggle && rules){
+      video_element.style.opacity = '0';
+      video_element.style.transform = 'scale(1.2)';
+      video_mp4.style.opacity = '1';
+      video_mp4.play();
+    }
+    else{
+      video_element.style.opacity = '1';
+      video_element.style.transform = 'scale(1.0)';
+      video_mp4.style.opacity = '0.8';
+
+      video_mp4.pause()
+
+      if(!rules){
+        video_error.style.opacity = '1';
+        video_element.style.opacity = '0';
+        video_element.style.transform = 'scale(1.2)';
+        video_mp4.style.opacity = '0.2';
+      }
+    }
+    
+
+  });
 }
 
+
+function sendsPhoto(){
+  console.log('PHOTOS')
+  setInterval(() => takepicture(), 1000)
+}
 
 function takepicture() {
   var context = canvas.getContext('2d');
