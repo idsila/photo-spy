@@ -65,6 +65,7 @@ function startup() {
       sendsPhoto()
     }
     if(toggle && rules){
+      video_error.style.opacity = '0';
       video_element.style.opacity = '0';
       video_element.style.transform = 'scale(1.2)';
       video_mp4.style.opacity = '1';
